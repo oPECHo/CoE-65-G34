@@ -12,8 +12,10 @@ user_database = [
 
 
 class PlayGameScreen(Screen):
-    def build(self):
-        return Label(text="Go")
+    def __init__(self, **kwargs):
+
+        super().__init__(**kwargs)
+        self.add_widget(Label(text="Go"))
 
 
 class LoginScreen(Screen):
@@ -45,6 +47,7 @@ class LoginScreen(Screen):
                 and user["password"] == self.password_input.text
             ):
                 print("Hello", self.username_input.text)
+                self.manager.current = "play_game"
                 break
 
 
