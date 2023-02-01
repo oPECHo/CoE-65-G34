@@ -3,7 +3,7 @@ from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
-
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 user_database = [
     dict(username="admin", password="adminadmin"),
@@ -11,17 +11,15 @@ user_database = [
 ]
 
 
-class HelloWorldApp(App):
-    def on_login(self, instance):
-        for user in user_database:
-            if (
-                user["username"] == self.username_input.text.strip()
-                and user["password"] == self.password_input.text
-            ):
-                print("Hello", self.username_input.text)
-                break
-
+class PlayGameScreen(Screen):
     def build(self):
+        return Label(text="Go")
+
+
+class LoginScreen(Screen):
+    def __init__(self, **kwargs):
+
+        super().__init__(**kwargs)
         layout = BoxLayout(orientation="vertical")
         layout.add_widget(Label(text="Login", font_size=50))
 
@@ -38,7 +36,24 @@ class HelloWorldApp(App):
         layout.add_widget(password_layout)
 
         layout.add_widget(Button(text="Submit", on_press=self.on_login))
-        return layout
+        self.add_widget(layout)
+
+    def on_login(self, instance):
+        for user in user_database:
+            if (
+                user["username"] == self.username_input.text.strip()
+                and user["password"] == self.password_input.text
+            ):
+                print("Hello", self.username_input.text)
+                break
+
+
+class HelloWorldApp(App):
+    def build(self):
+        self.sm = ScreenManager()
+        self.sm.add_widget(LoginScreen(name="login"))
+        self.sm.add_widget(PlayGameScreen(name="play_game"))
+        return self.sm
 
 
 if __name__ == "__main__":
