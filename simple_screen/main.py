@@ -6,21 +6,26 @@ from kivy.uix.button import Button
 
 
 class HelloWorldApp(App):
+    def on_login(self, instance):
+        print(self.username_input.text, self.password_input.text)
+
     def build(self):
         layout = BoxLayout(orientation="vertical")
-        layout.add_widget(Label(text="Head"))
+        layout.add_widget(Label(text="Login", font_size=50))
 
         username_layout = BoxLayout()
-        username_layout.add_widget(Label(text="Password"))
-        username_layout.add_widget(TextInput(multiline=False))
+        username_layout.add_widget(Label(text="Username"))
+        self.username_input = TextInput(multiline=False)
+        username_layout.add_widget(self.username_input)
         layout.add_widget(username_layout)
 
         password_layout = BoxLayout()
         password_layout.add_widget(Label(text="Password"))
-        password_layout.add_widget(TextInput(password=True, multiline=False))
+        self.password_input = TextInput(password=True, multiline=False)
+        password_layout.add_widget(self.password_input)
         layout.add_widget(password_layout)
 
-        layout.add_widget(Button(text="Submit"))
+        layout.add_widget(Button(text="Submit", on_press=self.on_login))
         return layout
 
 
