@@ -5,9 +5,21 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 
 
+user_database = [
+    dict(username="admin", password="adminadmin"),
+    dict(username="tl", password="123456"),
+]
+
+
 class HelloWorldApp(App):
     def on_login(self, instance):
-        print(self.username_input.text, self.password_input.text)
+        for user in user_database:
+            if (
+                user["username"] == self.username_input.text.strip()
+                and user["password"] == self.password_input.text
+            ):
+                print("Hello", self.username_input.text)
+                break
 
     def build(self):
         layout = BoxLayout(orientation="vertical")
