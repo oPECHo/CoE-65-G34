@@ -12,41 +12,18 @@ user_database = [
 
 
 class PlayGameScreen(Screen):
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)
-        self.add_widget(Label(text="Go"))
+    pass
 
 
 class LoginScreen(Screen):
-    def __init__(self, **kwargs):
-
-        super().__init__(**kwargs)
-        layout = BoxLayout(orientation="vertical", spacing=10)
-        layout.add_widget(Label(text="Login", font_size=50))
-
-        username_layout = BoxLayout()
-        username_layout.add_widget(Label(text="Username"))
-        self.username_input = TextInput(multiline=False, size_hint_y=None)
-        username_layout.add_widget(self.username_input)
-        layout.add_widget(username_layout)
-
-        password_layout = BoxLayout()
-        password_layout.add_widget(Label(text="Password"))
-        self.password_input = TextInput(password=True, multiline=False)
-        password_layout.add_widget(self.password_input)
-        layout.add_widget(password_layout)
-
-        layout.add_widget(Button(text="Submit", on_press=self.on_login))
-        self.add_widget(layout)
-
-    def on_login(self, instance):
+    def on_login(self):
+        print("in on login")
         for user in user_database:
             if (
-                user["username"] == self.username_input.text.strip()
-                and user["password"] == self.password_input.text
+                user["username"] == self.ids.username.text.strip()
+                and user["password"] == self.ids.password.text
             ):
-                print("Hello", self.username_input.text)
+                print("Hello", self.ids.username.text)
                 self.manager.current = "play_game"
                 break
 

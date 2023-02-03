@@ -1,0 +1,27 @@
+<PlayGameScreen>:
+    Label:
+        text: "Go"
+
+<LoginScreen>:
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Login"
+        BoxLayout:
+            Label:
+                text: "Username:"
+            TextInput:
+                id: username
+                multiline: False
+        BoxLayout:
+            Label:
+                text: "Password:"
+            TextInput:
+                id: password
+                multiline: False
+        Button:
+            text: "Submit"
+            on_press: self.parent.parent.on_login()
+
+
